@@ -20,22 +20,28 @@ const AuthorList = (props) => {
             <h1>Favorite Authors</h1>
             <Link to='/new'>Add an author</Link>
             <h2>We have quotes by:</h2>
-            <div>
+            <div className='m-auto d-flex justify-content-center alight-items-center '>
                 <table>
+                    <thead>
                     <tr>
                         <th>Author</th>
                         <th>Actions available</th>
                     </tr>
+                    </thead>
+                    <tbody>
                 {props.author.map( (person, i) => { 
+                    
                     return(
-                    <tr key={i}>
+                        
+                    <tr key={person._id}>
                         <td>{person.author}</td>
                         <td><Link to={`/author/${person._id}/edit`}>Edit</Link>&nbsp;&nbsp;</td>
-                        <button onClick={(e)=>{deleteAuthor(person._id)}}>Delete</button>
+                        <td><button className="btn btn-danger" onClick={(e)=>{deleteAuthor(person._id)}}>Delete</button></td>
                     </tr>
-                    
                 )}
+        
             )}
+            </tbody>
                 </table>
                 </div>
         </div>

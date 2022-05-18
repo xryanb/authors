@@ -7,6 +7,7 @@ const Update=() => {
     const{id}=useParams();
     const [author, setAuthor] = useState(""); 
     const navigate=useNavigate();
+    const [errors, setErrors] = useState([]);
 
 
     useEffect(() => {
@@ -24,7 +25,15 @@ const Update=() => {
             .then(res => {
                 navigate('/',{replace:true})
                 console.log(res)})
-            .catch(err => console.error(err));
+                
+                .catch(err=>{
+                    console.log(err)
+                    const errorResponse = err.response.data.errors;
+                    const errorArr = [];
+                    for (const key of Object.keys(errorResponse)) {
+                        errorArr.push(errorResponse[key].message)}
+                        setErrors(errorArr);
+                })
     }
 
 
@@ -38,11 +47,12 @@ const Update=() => {
             <h3>Edit this author:</h3>
             <div>
         <form onSubmit={updatePerson}>
+        {errors.map((err, index) => <p key={index}>{err}</p>)}
             <p>
                 <label>Name :</label><br/>
                 <input type="text" onChange={(e)=>setAuthor(e.target.value)} value={author}/>
             </p>
-            <button onClick={abortMission}>Cancel</button> &nbsp;&nbsp;
+            <button onClick={abortMission} variant="danger">Cancel</button> &nbsp;&nbsp;
             <input type="submit"/>
         </form>
         </div>

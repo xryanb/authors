@@ -14,7 +14,7 @@ function App() {
     
 
     <Routes>
-      <Route path='/' element={<Main/>}/>
+    <Route path='/' element={<Main/>}/>
     <Route path='/new' element={<AuthorForm/>}/>
     <Route path='/author/:id/edit' element={<Update/>}/>
 
